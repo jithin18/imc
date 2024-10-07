@@ -1,0 +1,114 @@
+// .modal {
+//     display: block; /* Display modal */
+//     background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+//   }
+  
+//   .modal.show .modal-dialog {
+//     transition: transform 0.3s ease-out;
+//     transform: translateY(0);
+//   }
+  
+//   .modal-dialog {
+//     transition: transform 0.3s ease-out;
+//     transform: translateY(-100px);
+//   }
+  
+//   .chat-box {
+//     max-height: 300px;
+//     overflow-y: auto;
+//   }
+  
+//   .customer-chat {
+//     background-color: #f1f1f1; /* Light gray for customer chat */
+//     border-radius: 8px;
+//     padding: 10px;
+//     margin: 5px 0;
+//     align-self: flex-start; /* Align customer chat to the left */
+//   }
+  
+//   .bot-chat {
+//     background-color: red; /* Red for bot chat */
+//     color: white; /* White text for better contrast */
+//     border-radius: 8px;
+//     padding: 10px;
+//     margin: 5px 0;
+//     align-self: flex-end; /* Align bot chat to the right */
+//   }
+  
+//   .modal-body p {
+//     border-radius: 8px;
+//     padding: 10px;
+//     margin: 5px 0;
+//   }
+  
+//   .modal-body p strong {
+//     color: #007bff;
+//   }
+  
+//   .btn-close {
+//     background-color: transparent;
+//     border: none;
+//     font-size: 1.5rem;
+//   }
+  
+//   .btn-close:focus {
+//     outline: none;
+//   }
+  
+
+.modal {
+    display: block; /* Display modal */
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  }
+  
+  .modal.show .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translateY(0);
+  }
+  
+  .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translateY(-100px);
+  }
+  
+  .chat-box {
+    max-height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-body {
+    padding: 20px; /* Increased padding for a cleaner look */
+  }
+  
+  .message {
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 5px 0;
+    max-width: 70%; /* Limit width for better readability */
+    word-wrap: break-word;
+  }
+  
+  .bot-message {
+    background-color: #007bff; /* Bot message background */
+    color: white; /* Bot message text color */
+    align-self: flex-end; /* Align to the right */
+  }
+  
+  .customer-message {
+    background-color: #f1f1f1; /* Customer message background */
+    color: #333; /* Customer message text color */
+    align-self: flex-start; /* Align to the left */
+  }
+  
+  .btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+  }
+  
+  .btn-close:focus {
+    outline: none;
+  }
+  

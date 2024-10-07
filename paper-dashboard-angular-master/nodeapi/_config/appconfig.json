@@ -1,0 +1,33 @@
+{
+  "port": "3666",
+  "log": {
+    "path": "D:\\Home\\Log\\imcdemo\\",
+    "logInfo": true,
+    "logDebug": true
+  },
+  "files": {
+    "zipFilePath": "D:\\Home\\Log\\imcdemo\\zipFiles\\",
+    "voiceFilePath": "D:\\resources\\Vfiles\\"
+  },
+  "proxy": {
+    "isEnabled": false,
+    "host": "10.94.147.19",
+    "port": 8080
+  },
+  "mail": {
+    "host": "192.9.200.203",
+    "port": "25"
+  },
+  "prctimeout": {
+    "normal": 180,
+    "immediate": 5,
+    "moderate": 60
+  },
+  "database": "1gG8Gs1H5f9rtBP0uOSiJVMuuuh2nwENypGdmcA/d/4DCg7f0YB6fOKL8vIFJFEEDYnZvJGXVg+au6H5Qfc8ZigMvs0UkE2UDcJ0LWx+eoCq4HkFoS+TgWLcdnESGn0BqeWY0HIGAXj4xS9XM1IWPKWFf/ags5kFzOaf9/txMZvqA0DTL6Hi5jMX5s8F7h0P3L46m9yXbuYFmbDP73oJRewDacnNrkaTXAhyU49ygRo=",
+  "dbOpsEndPoints": [
+    { "loc": "AP", "port": "http://192.9.200.31:3706" },
+    { "loc": "TN", "port": "http://192.9.200.31:3611" },
+    { "loc": "2T", "port": "http://localhost:7411" }
+  ],
+  "DBapiTimeout":60000
+}

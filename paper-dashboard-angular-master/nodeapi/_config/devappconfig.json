@@ -1,0 +1,27 @@
+{
+  "port": "3666",
+  "log": {
+    "path": "D:\\Home\\Log\\imcdemo\\",
+    "logInfo": true,
+    "logDebug": true
+  },
+  "files": {
+    "zipFilePath": "D:\\Home\\Log\\imcdemo\\zipFiles\\",
+    "voiceFilePath": "D:\\resources\\Vfiles\\"
+  },
+  "proxy": {
+    "isEnabled": false,
+    "host": "10.94.147.19",
+    "port": 8080
+  },
+  "mail": {
+    "host": "192.9.200.203",
+    "port": "25"
+  },
+  "prctimeout": {
+    "normal": 180,
+    "immediate": 6,
+    "moderate": 60
+  },
+  "database": "1gG8Gs1H5f9rtBP0uOSiJSkTVZ5UUeOSZKHOh/7z7ka0+WCawLWH3CC/wWAQdfGVuYMy91Hok/dsVuvkx9u/tg35nZ1oblK2ok07mQaBYaiNqJTDb4EPHrtUBANIppEW20SDc1PK9dGJn/XIgSxCS7iWOspM85PfB+0GLQOVaqEtu3d4I4KmS17yVihL2eCRKQ7bme3sVsej8PoAnAiDzMuXeL2a0sA57XL4b0dbuowO+ObDcBwVdFfs7kPfab678CwNJXBP2MXmXQvwWDhGdqyG3kivj36oHA8ZYvzxiASqefiRoFNkBOt52eyCSeUbStVd2CL7PoVFj2aiQj8S6FYTyX0iU8xQ7scsGh0fZjoKWA8remIIEdq1Rhhz/4KxHA7GvQlOSKL0BP6AWJVDKXAEIgoxEDy0iR6XKFDvF5b2+TsTlvD6rgB3YlIMlPzRIvzFm7t2lgBFqeFa6zPT5NmeJ22E6R+74tNgZ2UDf66NRpPlOlRjglqA6whaYujN8YtwbiyYkhAF73XYFy6vWBkgiuYBVa5577QhFp6JqJNUW+PuETbPb42ZeM96DuqZH3X65fZPmdBRkXRKFG12LHHfipIlmBvJg2wyArre+d3QGzUe9f5bIkKd8QF64jpWJzA/03gt3ueXzxO5Bg36rjRtAjA1NCUu0skwbscOj2KD6J6le226W/rht5SjVeWgfKYRhJpjL4dzOg0Lxdyj7WWMgSBrsxSFhLFaV5c+1HefBTxhsXPCenbGvKK8PFYeCL0rew28Z/49lcSmN2BmVQ352zpJDTbQLMtoJptbosLhA56FkamMZKo5nigf+gRNRcCKBbSPJxKh4YRLKAQRkaqyrmOMwebjODfsOtVIIuWDmghCiPn/2H8yNED79NcK14dGeCYEoV/w+Jhx8HiJmwJRVD0Tl/ax9h6UFPFKkgb7ijHgU5RFKkJsaD89Z/XiFgtZu5QV573T6x2nFVGIdkzN5f9ZZpz1R7zEjDegv3fgNcKVnnVlT8kx/+1QY7Ymxg6R2cs//ZGG2oGzYtiCE179tLBl8N8PjHeK+QBA3nH78Q4Es0k3AQhLe1xobgQluIGDieB73Zj4I3gmg/Hpqw=="
+}

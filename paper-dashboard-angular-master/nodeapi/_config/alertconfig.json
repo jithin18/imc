@@ -1,0 +1,8 @@
+{
+    "mail": {
+        "from": "reports@prutech.in",
+        "to": "mridhul@prutech.in",
+        "cc": "mridhul@prutech.in",
+        "subject": "CPaaS Alert local!"
+    }
+}
