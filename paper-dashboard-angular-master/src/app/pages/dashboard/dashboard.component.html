@@ -22,165 +22,6 @@
   }
 </style>
 
-<div class="row d-flex" style="align-items: stretch;">
-  <!-- Left Column -->
-  <div class="col-md-6 d-flex">
-    <div class="card card-stats flex-fill" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-      <div class="card-body d-flex flex-column">
-
-        <!-- Row for Accuracy -->
-        <div class="row mb-3">
-          <div class="col-12">
-            <div class="card card-inner" style="border: 1px solid #6d6f76;">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <div class="icon-container mr-3">
-                    <i class="nc-icon nc-check-2" style="font-size: 24px;"></i>
-                    <p class="card-category mb-1" style="color: black;">Accuracy</p>
-                    <p class="mb-0" style="color: #61636a; font-size: 14px;">Correctness of query handling</p>
-                  </div>
-                </div>
-                <div class="value-container">
-                  <p style="font-size: 24px; font-weight: bold;">99%</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Row for Response Time -->
-        <div class="row mb-3">
-          <div class="col-12">
-            <div class="card card-inner" style="border: 1px solid #6d6f76;">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <div class="icon-container mr-3">
-                    <i class="nc-icon nc-chat-33" style="font-size: 24px;"></i>
-                    <p class="card-category mb-1" style="color: black;">Response Time</p>
-                    <p class="mb-0" style="color: #61636a; font-size: 14px;">Time taken to reply</p>
-                  </div>
-                </div>
-                <div class="value-container">
-                  <p style="font-size: 24px; font-weight: bold;">0.09s</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Row for Agent Transfer Ratio -->
-        <div class="row mb-3">
-          <div class="col-12">
-            <div class="card card-inner" style="border: 1px solid #6d6f76;">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <div class="icon-container mr-3">
-                    <i class="nc-icon nc-circle-10" style="font-size: 24px;"></i>
-                    <p class="card-category mb-1" style="color: black;">Agent Transfer Ratio</p>
-                    <p class="mb-0" style="color: #61636a; font-size: 14px;">Calls transferred to other agents</p>
-                  </div>
-                </div>
-                <div class="value-container">
-                  <a href="#" (click)="openModal($event)" data-bs-toggle="modal" data-bs-target="#transferRatioModal" class="text-secondary" style="font-size: 24px; font-weight: bold;">49%</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="mt-auto">
-          <div class="card-footer">
-            <hr>
-            <div class="stats">
-              <i class="fa fa-bar-chart"></i> Bot Performance Summary
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- Right Column -->
-  <div class="col-md-6 d-flex">
-    <div class="card card-stats flex-fill" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
-      <div class="card-body d-flex flex-column">
-
-        <div class="row mb-3">
-          <div class="col-12">
-            <div class="card card-inner" style="border: 1px solid #6d6f76;">
-              <div class="card-body d-flex justify-content-between align-items-center">
-                <!-- Icon and Text on the left -->
-                <div class="d-flex align-items-center">
-                  <div class="icon-container mr-3">
-                    <i class="nc-icon nc-chart-bar-32" style="font-size: 24px;"></i> <!-- Icon size adjusted to match -->
-                    <div>
-                      <p class="card-category mb-1" style="font-weight: bold; color: black;">Average Sentiment Score</p>
-                      <p class="mb-0" style="color: #61636a; font-size: 14px;">Sentiment analysis from user feedback</p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Value on the right -->
-                <div class="value-container">
-                  <p class="card-title" style="font-size: 24px; font-weight: bold; color: black;">{{ sentimentScore }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sentiment Pattern and Chart Section -->
-        <div class="row mb-3">
-          <div class="col-12">
-            <div class="card card-inner" style="border: 1px solid #6d6f76;">
-              <div class="card-body">
-                <!-- Sentiment Pattern Header -->
-                <p class="card-category mb-1" style="color: black; padding: 10px;margin-left: 31%;">Sentiment Pattern</p>
-
-                <!-- Sentiment Dots Row -->
-                <div class="row justify-content-center mb-4">
-                  <div class="col-auto d-flex align-items-center">
-                    <span class="dot green-dot"></span>
-                    <span class="ml-2">Positive</span>
-                  </div>
-                  <div class="col-auto d-flex align-items-center">
-                    <span class="dot red-dot"></span>
-                    <span class="ml-2">Negative</span>
-                  </div>
-                  <div class="col-auto d-flex align-items-center">
-                    <span class="dot yellow-dot"></span>
-                    <span class="ml-2">Neutral</span>
-                  </div>
-                </div>
-
-                <!-- Doughnut Chart Container -->
-                <div class="chart-container" style="position: relative; height: 170px; width: 150px; margin: 0 auto;">
-                  <canvas id="sentimentChart"></canvas>
-                </div>
-              </div>
-
-              <!-- Footer Section -->
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-auto">
-          <div class="card-footer">
-            <hr>
-            <div class="stats">
-              <i class="fa fa-bar-chart"></i> Sentiment Analytics Summary
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Custom CSS -->
 <style>
   .stats {
     font-size: 14px;
@@ -241,72 +82,141 @@
   }
 </style>
 
-
-
+<style>
+  .numbers {
+    font-size: 1.2rem;
+  }
+  .card-category {
+    font-weight: bold; 
+    color: #6c757d; 
+  }
+  .card-title {
+    font-size: 1.5rem; 
+    color: #28a745; 
+    margin: 0; 
+  }
+  .stats {
+    display: flex;
+    align-items: center;
+    font-size: 14px; 
+  }
+  .fa-bar-chart {
+    margin-right: 5px; 
+  }
+  .mt-3 {
+    margin-top: 1rem; 
+  }
+  .icon-big i {
+    font-size: 2.5rem; 
+  }
+</style>
 
 
 
 <div class="row d-flex justify-content-between">
-
-  <!-- Updated Column Classes -->
-  <div class="col-lg-12 col-md-12 col-sm-12 d-flex" style="flex-direction: column;">
+  <!-- Main Column -->
+  <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-column">
+    
+    <!-- Stats Card -->
     <div class="card card-stats flex-fill">
       <div class="card-body d-flex flex-column">
+        
+        <!-- Call Stats Row -->
         <div class="row mb-3">
           <div class="col-12">
             <div class="card card-inner" style="border: 1px solid #6d6f76;">
-              <div class="card-body d-flex justify-content-between align-items-center" style="padding: 0px;">
-                <div class="col-4">
-                  <div class="d-flex align-items-center" style="padding: 18px 21px; border-right: 1px solid grey;">
-                  <div class="icon-container mr-3" style="width: 100%;">
-                    <!-- <i class="nc-icon nc-mobile text-success" style="font-size: 24px;"></i> -->
-                    <p class="card-category mb-1" style="color: black;">No of Calls</p>
-                    <p class="mb-0" style="color: #61636a; font-size: 14px;">1444</p> <!-- No of calls value -->
-                  </div>
-                </div></div>
-                <div class="col-4">
-                  <!-- Call Duration Section -->
-                <div class="d-flex align-items-center"  style="padding: 18px 21px; border-right: 1px solid grey;">
-                  <div class="icon-container mr-3" style="width: 100%;">
-                    <!-- <i class="nc-icon nc-time-alarm text-danger" style="font-size: 24px;"></i> -->
-                    <p class="card-category mb-1" style="color: black;">Call Duration</p>
-                    <p class="mb-0" style="color: #61636a; font-size: 14px;">92+ hrs</p> <!-- Call duration value -->
-                  </div>
-                </div>
-                </div>
-                <div class="col-4">
-                  <!-- Average Call Handling Time Section -->
-                <div class="d-flex align-items-center"  style="padding: 18px 21px;">
-                  <div class="icon-container mr-3" style="width: 100%;">
-                    <!-- <i class="nc-icon nc-watch-time text-primary" style="font-size: 24px;"></i> -->
-                    <p class="card-category mb-1" style="color: black;">Avg Call Handling Time</p>
-                    <p class="mb-0" style="color: #61636a; font-size: 14px;">00:04.34</p> <!-- Average call duration value -->
-                  </div>
-                </div>
-                </div>
-        
+              <div class="card-body d-flex justify-content-between align-items-stretch" style="padding: 0;">
                 
-        
+                <!-- No of Calls Section (as a separate card) -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="card h-100" style="border: 1px solid #6d6f76; border-radius: 5px;">
+                    <div class="card-body d-flex align-items-center" >
+                      
+                      <!-- No of Calls Section with SVG Icon -->
+                   <div class="icon-container mr-3" style="width: 100%; display: flex; align-items: center;">
+  <!-- SVG Icon for No of Calls -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone" style="font-size: 24px;">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </svg>
+
+  <!-- No of Calls Text -->
+  <div style="margin-left: 10px;">
+    <p class="card-category mb-1" style="font-weight: bold; color: black;">No of Calls</p>
+    <p class="mb-0" style="color: #61636a; font-size: 14px;">{{totalCalls}}</p> <!-- No of calls value -->
+  </div>
+                   </div>
+
+                      
+                    </div>
+                  </div>
+                </div>
                 
-        
+                <!-- Call Duration Section (as a separate card) -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="card h-100" style="border: 1px solid #6d6f76; border-radius: 5px;">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                      <!-- SVG and Call Duration Text -->
+                      <div class="icon-container mr-3" style="width: 100%; display: flex; align-items: center;">
+                        <!-- SVG Icon for Call Duration (Clock) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock">
+                          <circle cx="12" cy="12" r="10"/>
+                          <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                
+                        <!-- Call Duration Text -->
+                        <div style="margin-left: 10px;">
+                          <p class="card-category mb-1" style="color: black; font-weight: bold;">Call Duration</p>
+                          <p class="mb-0" style="color: #61636a; font-size: 14px;">{{callDuration}}</p> <!-- Call duration value -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                
+                
+                <!-- Avg Call Handling Time Section (as a separate card) -->
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="card h-100" style="border: 1px solid #6d6f76; border-radius: 5px;">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                      <!-- SVG and Avg Call Handling Time Text -->
+                      <div class="icon-container mr-3" style="width: 100%; display: flex; align-items: center;">
+                        <!-- SVG Icon for Avg Call Handling Time (Headset) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-headset">
+                          <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/>
+                          <path d="M21 16v2a4 4 0 0 1-4 4h-5"/>
+                        </svg>
+                
+                        <!-- Avg Call Handling Time Text -->
+                        <div style="margin-left: 10px;">
+                          <p class="card-category mb-1" style="color: black; font-weight: bold;">Avg Call Handling Time</p>
+                          <p class="mb-0" style="color: #61636a; font-size: 14px;">{{avgCallHandlingTime}}</p> <!-- Average call duration value -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+
               </div>
             </div>
           </div>
         </div>
         
-  
-        <!-- Peak Hour Chart -->
+        <!-- Peak Hour Chart Section -->
         <div class="row">
           <div class="col-12">
             <div class="numbers">
               <div class="bar-graph">
-                <canvas id="peakHourChart"></canvas>
+                <canvas id="peakHourChart"></canvas> <!-- Placeholder for the Peak Hour Chart -->
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Modal for Line Chart -->
+        
+        <!-- Modal for Line Chart (Last 60 Minutes Call Activity) -->
         <div class="modal fade" id="lineChartModal" tabindex="-1" aria-labelledby="lineChartModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -315,12 +225,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <canvas id="lineChart"></canvas>
+                <canvas id="lineChart"></canvas> <!-- Placeholder for the Line Chart -->
               </div>
             </div>
           </div>
         </div>
-
+        
+        <!-- Footer Section -->
         <div class="mt-auto">
           <div class="card-footer">
             <hr>
@@ -329,17 +240,229 @@
             </div>
           </div>
         </div>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="row d-flex" style="align-items: stretch;">
+  <!-- Left Column -->
+  <div class="col-md-6 d-flex">
+    <div class="card card-stats flex-fill" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+      <div class="card-body d-flex flex-column">
+
+        <!-- Row for Accuracy -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card card-inner" style="border: 1px solid #6d6f76;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container mr-3">
+                    <!-- Inline SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-target" style="font-size: 24px;">
+                      <circle cx="12" cy="12" r="10"/>
+                      <circle cx="12" cy="12" r="6"/>
+                      <circle cx="12" cy="12" r="2"/>
+                    </svg>
+                    
+                    <!-- Texts below the icon -->
+                    <p class="card-category mb-1" style="color: black;">Accuracy</p>
+                    <p class="mb-0" style="color: #61636a; font-size: 14px;">Correctness of query handling</p>
+                  </div>
+                  
+                </div>
+                <div class="value-container">
+                  <p style="font-size: 24px; font-weight: bold;">99%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row for Response Time -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card card-inner" style="border: 1px solid #6d6f76;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container mr-3">
+                    <!-- Inline SVG for "Response Time" -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square" style="font-size: 24px;">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  
+                    <!-- Texts below the icon -->
+                    <p class="card-category mb-1" style="color: black;">Response Time</p>
+                    <p class="mb-0" style="color: #61636a; font-size: 14px;">Time taken to reply</p>
+                  </div>
+                  
+                </div>
+                <div class="value-container">
+                  <p style="font-size: 24px; font-weight: bold;">0.09s</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row for Agent Transfer Ratio -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card card-inner" style="border: 1px solid #6d6f76;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="icon-container mr-3">
+                    <!-- Inline SVG -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-left" style="font-size: 24px;">
+                      <path d="m16 3 4 4-4 4"/>
+                      <path d="M20 7H4"/>
+                      <path d="m8 21-4-4 4-4"/>
+                      <path d="M4 17h16"/>
+                    </svg>
+                  
+                    <!-- Texts below the icon -->
+                    <p class="card-category mb-1" style="color: black;">Agent Transfer Ratio</p>
+                    <p class="mb-0" style="color: #61636a; font-size: 14px;">Calls transferred to other agents</p>
+                  </div>
+                  
+                </div>
+                <div class="value-container">
+                  <a href="#" (click)="openModal($event)" data-bs-toggle="modal" data-bs-target="#transferRatioModal" class="text-secondary" style="font-size: 24px; font-weight: bold;">49%</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-auto">
+          <div class="card-footer">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-bar-chart"></i> Bot Performance Summary
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="col-md-6 d-flex">
+    <div class="card card-stats flex-fill" style="background-color: #f8f9fa; border: 1px solid #dee2e6;">
+      <div class="card-body d-flex flex-column">
+
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card card-inner" style="border: 1px solid #6d6f76;">
+              <div class="card-body d-flex justify-content-between align-items-center">
+                <!-- Icon and Text on the left -->
+                <div class="d-flex align-items-center">
+                  <div class="icon-container mr-3">
+                    <!-- Inline SVG for "Average Sentiment Score" -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-no-axes-combined" style="font-size: 24px;">
+                      <path d="M12 16v5"/>
+                      <path d="M16 14v7"/>
+                      <path d="M20 10v11"/>
+                      <path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/>
+                      <path d="M4 18v3"/>
+                      <path d="M8 14v7"/>
+                    </svg> <!-- Example SVG for a bar chart, replace with your desired SVG -->
+                  
+                    <div>
+                      <p class="card-category mb-1" style="font-weight: bold; color: black;">Average Sentiment Score</p>
+                      <p class="mb-0" style="color: #61636a; font-size: 14px;">Sentiment analysis from user feedback</p>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <!-- Value on the right -->
+                <div class="value-container">
+                  <p class="card-title" style="font-size: 24px; font-weight: bold; color: black;">{{ sentimentScore }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sentiment Pattern and Chart Section -->
+        <div class="row mb-3">
+          <div class="col-12">
+            <div class="card card-inner" style="border: 1px solid #6d6f76;">
+              <div class="card-body">
+                <!-- Sentiment Pattern Header -->
+                <p class="card-category mb-1" style="color: black; padding: 10px;margin-left: 31%;">Sentiment Pattern</p>
+
+                <!-- Sentiment Dots Row -->
+                <div class="row justify-content-center mb-4">
+                  <div class="col-auto d-flex align-items-center">
+                    <span class="dot green-dot"></span>
+                    <span class="ml-2">Positive</span>
+                  </div>
+                  <div class="col-auto d-flex align-items-center">
+                    <span class="dot red-dot"></span>
+                    <span class="ml-2">Negative</span>
+                  </div>
+                  <div class="col-auto d-flex align-items-center">
+                    <span class="dot yellow-dot"></span>
+                    <span class="ml-2">Neutral</span>
+                  </div>
+                </div>
+
+                <!-- Doughnut Chart Container -->
+                <!-- Doughnut Chart Container -->
+<div class="chart-container" style="position: relative; height: 170px; width: 150px; margin: 0 auto;">
+  <canvas id="sentimentChart"></canvas>
+</div>
+
+<!-- Modal for FAQs -->
+<div class="modal fade" id="faqModal" tabindex="-1" aria-labelledby="faqModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="faqModalLabel">Top FAQs</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let question of questions">
+            <span>{{ question.emoji }} {{ question.text }}</span>
+            <!-- <span class="count">({{ question.count }})</span> -->
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="downloadKeywords(selectedSentiment)">Download as Excel</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal for Transfer Ratio Details -->
-<div class="row d-flex justify-content-between">
-  <div class="col-lg-6 col-md-6 col-sm-6 d-flex">
-    
+
+              <!-- Footer Section -->
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-auto">
+          <div class="card-footer">
+            <hr>
+            <div class="stats">
+              <i class="fa fa-bar-chart"></i> Sentiment Analytics Summary
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </div>
+
 
 
 <div class="modal fade" id="transferRatioModal" tabindex="-1" aria-labelledby="transferRatioModalLabel" aria-hidden="true">
@@ -374,33 +497,6 @@
   </div>
 </div>
 
-<style>
-  .numbers {
-    font-size: 1.2rem;
-  }
-  .card-category {
-    font-weight: bold; 
-    color: #6c757d; 
-  }
-  .card-title {
-    font-size: 1.5rem; 
-    color: #28a745; 
-    margin: 0; 
-  }
-  .stats {
-    display: flex;
-    align-items: center;
-    font-size: 14px; 
-  }
-  .fa-bar-chart {
-    margin-right: 5px; 
-  }
-  .mt-3 {
-    margin-top: 1rem; 
-  }
-  .icon-big i {
-    font-size: 2.5rem; 
-  }
-</style>
+
 
 

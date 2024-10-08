@@ -257,6 +257,9 @@ function queryObject(sql, bindParams, options) {
  * @returns {Object} db connection and result
  */
 function executeProcedure(pool, sql, bindParams, exeOptions) {
+ 
+  
+  
   // options["outFormat"] = oracledb.OBJECT; // default is oracledb.ARRAY
   // options.isAutoCommit = false; // we only do SELECTs
   let poolAlias;

@@ -5,6 +5,8 @@ import { ChartEvent } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import * as bootstrap from 'bootstrap';
 import { ExcelService } from 'services/excel.service';
+import { commonservice } from 'services/common.service';
+//import {Target} from 'lucide-angular'
 interface Question {
   text: string; // The question text
   count: number; // The count of responses
@@ -29,8 +31,13 @@ export class DashboardComponent implements OnInit {
   public sentimentScore: number = 70; // Example average sentiment score
   public questions: Question[] = [];
   selectedTimePeriod: string = 'today';
+  selectedSentiment: string = 'all';
+  totalCalls: number = 0;
+  callDuration: string = ''; // Store as string for display purposes
+  avgCallHandlingTime: string = ''; // Store as string for display purposes
   public allQuestions: Question[] = [];
-  constructor(private excelService: ExcelService) {}
+  public dateRange: { from_date: string; to_date: string } | undefined;
+  constructor(private excelService: ExcelService,private commonservice:commonservice) {}
   ngOnInit() {
     this.chartColor = "#FFFFFF";
    
@@ -38,36 +45,136 @@ export class DashboardComponent implements OnInit {
     this.createSentimentChart();
     this.loadTransferRatioData();
     this.loadSentimentData();
+    this.setDateRange();
   }
 
+  // setDateRange() {
+  //   const currentDate = new Date();
+  //   let fromDate: Date;
+  //   let toDate: Date = currentDate;
 
-downloadKeywords(flag: string) {
-  let transformedData;
+  //   // Set the date range based on your selected time period logic
+  //   if (this.selectedTimePeriod === 'today') {
+  //     fromDate = toDate;
+  //   } else if (this.selectedTimePeriod === 'yesterday') {
+  //     fromDate = new Date(currentDate);
+  //     fromDate.setDate(currentDate.getDate() - 1);
+  //     toDate = fromDate;
+  //   } else if (this.selectedTimePeriod === 'last7days') {
+  //     fromDate = new Date(currentDate);
+  //     fromDate.setDate(currentDate.getDate() - 6);
+  //   } else {
+  //     fromDate = toDate;
+  //   }
 
-  if (flag === 'positive' || flag === 'negative' || flag === 'neutral') {
-    // Only return the keyword and count columns
-    transformedData = this.allQuestions
-      .filter((question) => question.sentiment === flag)
-      .map((question) => ({
-        FAQ: question.text,
-        count: question.count
-      }));
-  } else {
-    // Include positive, negative, and neutral columns for "Top Keywords"
-    transformedData = this.allQuestions.map((question) => ({
-      FAQ: question.text,
-      count: question.count,
-      positive: question.sentiment === 'positive' ? '✓' : '',
-      negative: question.sentiment === 'negative' ? '✓' : '',
-      neutral: question.sentiment === 'neutral' ? '✓' : ''
-    }));
+  //   this.dateRange = {
+  //     from_date: this.formatDate(fromDate),
+  //     to_date: this.formatDate(toDate)
+  //   };
+
+  //   console.log('Selected Date Range:', this.dateRange);
+
+  //   // Call the commonservice method and subscribe to the response
+  //   this.commonservice.getagentcalls(this.dateRange).subscribe((data) => {
+  //     console.log(data, "data");
+  //     // Handle the response
+  //   });
+  // }
+
+  // formatDate(date: Date): string {
+  //   const day = ('0' + date.getDate()).slice(-2);
+  //   const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  //   const year = date.getFullYear();
+  //   return `${day}/${month}/${year}`;
+  // }
+// downloadKeywords(flag: string) {
+//   let transformedData;
+
+//   if (flag === 'positive' || flag === 'negative' || flag === 'neutral') {
+//     // Only return the keyword and count columns
+//     transformedData = this.allQuestions
+//       .filter((question) => question.sentiment === flag)
+//       .map((question) => ({
+//         FAQ: question.text,
+//         count: question.count
+//       }));
+//   } else {
+//     // Include positive, negative, and neutral columns for "Top Keywords"
+//     transformedData = this.allQuestions.map((question) => ({
+//       FAQ: question.text,
+//       count: question.count,
+//       positive: question.sentiment === 'positive' ? '✓' : '',
+//       negative: question.sentiment === 'negative' ? '✓' : '',
+//       neutral: question.sentiment === 'neutral' ? '✓' : ''
+//     }));
+//   }
+
+//   // Export the filtered data to Excel
+//   this.excelService.exportAsExcelFile(transformedData, flag + 'Keywords');
+// }
+
+setDateRange() {
+  const currentDate = new Date();
+  let fromDate: Date;
+  let toDate: Date = currentDate;
+
+  switch (this.selectedTimePeriod) {
+    case 'today':
+      fromDate = toDate;
+      break;
+    case 'yesterday':
+      fromDate = new Date(currentDate);
+      fromDate.setDate(currentDate.getDate() - 1);
+      toDate = fromDate;
+      break;
+    case 'last7days':
+      fromDate = new Date(currentDate);
+      fromDate.setDate(currentDate.getDate() - 6);
+      break;
+    default:
+      fromDate = toDate;
+      break;
   }
 
-  // Export the filtered data to Excel
-  this.excelService.exportAsExcelFile(transformedData, flag + 'Keywords');
+  this.dateRange = {
+    from_date: this.formatDate(fromDate),
+    to_date: this.formatDate(toDate),
+  };
+
+  console.log('Selected Date Range:', this.dateRange);
+
+  // Call the commonservice method and subscribe to the response
+  this.commonservice.getagentcalls(this.dateRange).subscribe((data:any) => {
+    console.log(data, "data");
+    if (data.status === 200) {
+      const vJsonOut = JSON.parse(data.data.v_json_out);
+      console.log(vJsonOut, "vJsonOut");
+      
+      this.totalCalls = vJsonOut.total_calls; // Total number of calls
+      console.log(this.totalCalls, "totalCalls");
+      
+      this.callDuration = vJsonOut.duration; // Format duration to hours and minutes
+      console.log(this.callDuration, "callDuration");	
+      
+      this.avgCallHandlingTime = vJsonOut.avg_hndl_time; // Format avg handling time to hh:mm:ss
+      console.log(this.avgCallHandlingTime, "avgCallHandlingTime");
+    }
+  });
 }
 
+formatDuration(seconds: number): string {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const formattedDuration = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+  return formattedDuration;
+}
 
+formatDate(date: Date): string {
+  const day = ('0' + date.getDate()).slice(-2);
+  const month = ('0' + (date.getMonth() + 1)).slice(-2);
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
 loadSentimentData() {
   this.allQuestions = [
     { text: 'I am very satisfied with the service.', count: 10, sentiment: 'positive', emoji: '😊' },
@@ -105,6 +212,76 @@ filterQuestionsBySentiment(sentiment: string) {
   }
 }
 
+// createSentimentChart() {
+//   const canvas = document.getElementById('sentimentChart') as HTMLCanvasElement;
+//   const ctx = canvas.getContext('2d');
+
+//   this.sentimentChart = new Chart(ctx, {
+//     type: 'doughnut',
+//     data: {
+//       labels: ['Positive', 'Neutral', 'Negative'],
+//       datasets: [{
+//         data: [60, 30, 10],
+//         backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+//       }]
+//     },
+//     options: {
+//       responsive: true,
+//       maintainAspectRatio: false,
+//       plugins: {
+//         legend: { display: false },
+//         tooltip: { enabled: true }
+//       },
+//       onClick: (event: ChartEvent, activeElements: any[]) => {
+//         if (activeElements.length > 0) {
+//           const activeIndex = activeElements[0].index;
+//           const sentiment = this.sentimentChart.data.labels[activeIndex];
+//           this.filterQuestionsBySentiment((sentiment as string).toLowerCase());
+//         }
+//       }
+//     }
+//   });
+
+//   // Add event listener for clicking outside the chart
+//   document.addEventListener('click', (event: MouseEvent) => {
+//     const chartArea = canvas.getBoundingClientRect();
+//     if (
+//       event.clientX < chartArea.left ||
+//       event.clientX > chartArea.right ||
+//       event.clientY < chartArea.top ||
+//       event.clientY > chartArea.bottom
+//     ) {
+//       this.filterQuestionsBySentiment('all'); // Load all questions when clicking outside
+//     }
+//   });
+// }
+
+downloadKeywords(flag: string) {
+  let transformedData;
+
+  if (flag === 'positive' || flag === 'negative' || flag === 'neutral') {
+    // Only return the keyword and count columns
+    transformedData = this.allQuestions
+      .filter((question) => question.sentiment === flag)
+      .map((question) => ({
+        FAQ: question.text,
+        count: question.count
+      }));
+  } else {
+    // Include positive, negative, and neutral columns for "Top Keywords"
+    transformedData = this.allQuestions.map((question) => ({
+      FAQ: question.text,
+      count: question.count,
+      positive: question.sentiment === 'positive' ? '✓' : '',
+      negative: question.sentiment === 'negative' ? '✓' : '',
+      neutral: question.sentiment === 'neutral' ? '✓' : ''
+    }));
+  }
+
+  // Export the filtered data to Excel
+  this.excelService.exportAsExcelFile(transformedData, flag + 'Keywords');
+}
+
 createSentimentChart() {
   const canvas = document.getElementById('sentimentChart') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
@@ -128,10 +305,18 @@ createSentimentChart() {
       onClick: (event: ChartEvent, activeElements: any[]) => {
         if (activeElements.length > 0) {
           const activeIndex = activeElements[0].index;
-          const sentiment = this.sentimentChart.data.labels[activeIndex];
-          this.filterQuestionsBySentiment((sentiment as string).toLowerCase());
+          this.selectedSentiment = (this.sentimentChart.data.labels[activeIndex] as string).toLowerCase();
+          this.filterQuestionsBySentiment(this.selectedSentiment);
+      
+          // Show the modal
+          const modal = new bootstrap.Modal(document.getElementById('faqModal'));
+          console.log("aa");
+          
+          modal.show();
         }
       }
+      
+      
     }
   });
 

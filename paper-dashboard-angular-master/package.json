@@ -39,6 +39,7 @@
     "express": "4.18.0",
     "file-saver": "^2.0.5",
     "jquery": "^3.5.1",
+    "lucide-angular": "^0.447.0",
     "moment": "2.29.1",
     "ngx-audio-player": "^12.0.2",
     "ngx-toastr": "14.3.0",

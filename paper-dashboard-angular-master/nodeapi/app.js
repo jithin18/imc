@@ -8,7 +8,7 @@ const rfs = require("rotating-file-stream");
 // const path = require('path');
 // const moment = require('moment');
 const { Logger } = require("./_helpers/logger");
-
+const dash = require("./routes/dash.routes");
 const reports = require("./routes/reports.routes");
 const vfile = require("./routes/file.routes");
 
@@ -82,7 +82,7 @@ app.use(cookieParser());
 app.use("/api/reports",  queryparamsauth, reports);
 app.use("/api/file", verifyjwtToken, queryparamsauth, vfile);
 
-
+app.use("/api/dashboard", queryparamsauth,dash);
 app.use("/api/filedownload", vfiledownload);
 
 app.use("/api/mail", mail);
