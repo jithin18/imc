@@ -1,0 +1,23 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class OngoingCalldtlsService {
+  rootURL = "api/";
+    httpOptions = {
+        headers: new HttpHeaders({ "Content-Type": "application/json" }),
+      };
+      constructor(private http: HttpClient) {}
+
+      getagentcalls(callid) {
+        console.log(callid, "callid");
+        return this.http.post(
+          `${this.rootURL}reports/getbotchat`, // Ensure proper use of template literals
+          {"callId":callid},
+          this.httpOptions
+        );
+      }
+
+}
