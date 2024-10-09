@@ -37,3 +37,22 @@ exports.getongoingcalldetails = async function (req, res, next) {
       .json({ status: 400, message: "service unavailable" });
   }
 };
+
+exports.getcallhistory = async function (req, res, next) {
+  try {
+    const result = await reportsService.getcallhistory(req.body);
+   console.log(result,"rstqq");
+   
+    return res.status(200).json({
+      status: 200,
+      data: result.ref_cur_out,
+    });
+  } catch (e) {
+    Logger.error(
+      "reports.Controller.getcallhistory: " + JSON.stringify(e.message)
+    );
+    return res
+      .status(400)
+      .json({ status: 400, message: "service unavailable" });
+  }
+};

@@ -11,7 +11,7 @@ export interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard',     title: 'V!Bo Dashboard',         icon:'nc-bank',       class: '' },
 
-      { path: '/icons',         title: 'Custom Vocabulary',             icon:'nc-book-bookmark',    class: '' },
+     
     { path: '/reports/ongoing-calls', title: 'Ongoing Calls', icon: 'nc-headphones', class: '' },
    { path: '/reports/call-history', title: 'Call History', icon: 'nc-single-copy-04', class: '' },
     // { path: '/maps',          title: 'Recordings',              icon:'nc-note-03',      class: '' },

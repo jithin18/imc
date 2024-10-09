@@ -87,5 +87,52 @@ console.log("bindParams ",bindParams);
   });
 }
 
+function getcallhistory(req) {
+
+  let dbConnection;
+  let sql = `BEGIN vb_call_history_prc(:v_in_json, :ref_cur_out); END;`;
+
+  // Prepare bind parameters for input and output
+  let bindParams = {
+      v_in_json: { val: JSON.stringify(req), dir: oracledb.BIND_IN, type: oracledb.STRING }, // Stringify req for input
+      ref_cur_out: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } // Output bind for ref_cur_out cursor
+  };
+
+  return new Promise(function (resolve, reject) {
+      // Execute the procedure
+      oracleConnection
+          .executeProcedure(db_cpaasweb.poolAlias, sql, bindParams)
+          .then(function (result) {
+              dbConnection = result.dbConnection; // Store the connection
+              
+              // Fetch the cursor data from `ref_cur_out`
+              oracleConnection
+                  .getCursorData(result.dbResult.outBinds.ref_cur_out, 500)
+                  .then(function (cursorResult) {
+                      // Resolve with the cursor data
+                      
+                      
+                      resolve({
+                          ref_cur_out: cursorResult // Cursor data
+                      });
+                  })
+                  .catch(function (err) {
+                      Logger.error("Error fetching cursor data in getpeakhourcallbarchart: " + err);
+                      reject(err);
+                  });
+          })
+          .catch(function (err) {
+              Logger.error("Error executing procedure in getpeakhourcallbarchart: " + err);
+              reject(err);
+          });
+  }).finally(function () {
+      // Release the database connection
+      if (dbConnection) {
+          oracleConnection.connRelease(dbConnection);
+      }
+  });
+}
+
 module.exports.getbotchatdetails = getbotchatdetails;
 module.exports.getOngoingCalls = getOngoingCalls;
+module.exports.getcallhistory = getcallhistory;

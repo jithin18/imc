@@ -13,11 +13,49 @@ import { Observable, Subject } from "rxjs";
       constructor(private http: HttpClient) {}
 
       getagentcalls(daterange) {
-        console.log(daterange, "daterangexx");	
+        
         return this.http.post(
-          `${this.rootURL}dashboard/getagentcalls`, // Ensure proper use of template literals
+          `${this.rootURL}dashboard/getagentcalls`, 
           daterange,
           this.httpOptions
         );
       }
+
+      getbarchart(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/getpeakhourcallbarchart`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
+
+      getfaq(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/getfaq`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
+      getqueryanalysis(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/getqueryanalysis`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
+      getbotsummary(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/getbotsummary`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
+      getkeywords(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/getkeywords`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
+      
   }

@@ -26,4 +26,12 @@ export class OngoingCalldtlsService {
       this.httpOptions
     );
   }
+
+  getcallhistory(formattedjson) {
+    return this.http.post(
+      `${this.rootURL}reports/getcallhistory`, 
+      formattedjson,
+      this.httpOptions
+    );
+  }
 }
