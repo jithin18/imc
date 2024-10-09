@@ -249,7 +249,7 @@ function queryObject(sql, bindParams, options) {
   return queryArray(sql, bindParams, options);
 }
 /**
- * 
+ *
  * @param {*} pool connection pool
  * @param {*} sql sql / procedure
  * @param {*} bindParams sql / procedure paramters
@@ -257,9 +257,9 @@ function queryObject(sql, bindParams, options) {
  * @returns {Object} db connection and result
  */
 function executeProcedure(pool, sql, bindParams, exeOptions) {
- 
-  
-  
+
+
+
   // options["outFormat"] = oracledb.OBJECT; // default is oracledb.ARRAY
   // options.isAutoCommit = false; // we only do SELECTs
   let poolAlias;
@@ -325,7 +325,7 @@ function executeProcedure(pool, sql, bindParams, exeOptions) {
 }
 
 /**
- * to execute procedure with in 1000 * dbimmediateTimeout (value in config) 
+ * to execute procedure with in 1000 * dbimmediateTimeout (value in config)
  * @param {*} pool connection pool
  * @param {*} sql sql / procedure
  * @param {*} bindParams sql / procedure paramters
@@ -399,7 +399,7 @@ function executeProcedureImmediate(pool, sql, bindParams, exeOptions) {
 }
 
 /**
- * to execute procedure with in 1000 * dbmoderateTimeout (value in config) 
+ * to execute procedure with in 1000 * dbmoderateTimeout (value in config)
  * if agent is not able to ping  in dbmoderateTimeout (value in config)
  * then it will out 502 bad gateway error
  * @param {*} pool connection pool
@@ -513,7 +513,7 @@ function executeMany(pool, sql, bindParams, options) {
 }
 
 /**
- * 
+ *
  * @param {*} cursor name of cursor
  * @param {*} numRows no.of rows to be retured per fetch
  * @returns {Array} cursorData

@@ -29,107 +29,122 @@
     </table>
   </div> -->
 
-  <div class="card-body">
-    <!-- <div class="small text-muted">
+<div class="card-body">
+  <!-- <div class="small text-muted">
       Last 30 Days Report. For Data beyond last 30 days, please access "Download Reports" from the menu
     </div> -->
 
-    <!-- Table -->
-    <div class="mat-elevation-z8 table-responsive">
-      <table mat-table class="table table-striped table-report" [dataSource]="ongoingCalls" matSort>
+  <!-- Table -->
+  <div class="mat-elevation-z8 table-responsive">
+    <table
+      mat-table
+      class="table table-striped table-report"
+      [dataSource]="ongoingCalls"
+      matSort
+    >
+      <!-- Call ID Column -->
+      <ng-container matColumnDef="callId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Call ID</th>
+        <td mat-cell *matCellDef="let call">{{ call.callId }}</td>
+      </ng-container>
 
-        <!-- Call ID Column -->
-        <ng-container matColumnDef="callId">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Call ID</th>
-          <td mat-cell *matCellDef="let call"> {{ call.callId }} </td>
-        </ng-container>
+      <!-- Caller Number Column -->
+      <ng-container matColumnDef="callerNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Caller Number</th>
+        <td mat-cell *matCellDef="let call">{{ call.callerNumber }}</td>
+      </ng-container>
 
-        <!-- Caller Number Column -->
-        <ng-container matColumnDef="callerNumber">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Caller Number</th>
-          <td mat-cell *matCellDef="let call"> {{ call.callerNumber }} </td>
-        </ng-container>
+      <!-- Call Date Column -->
+      <ng-container matColumnDef="callDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let call">{{ call.callDate }}</td>
+      </ng-container>
 
-        <!-- Call Date Column -->
-        <ng-container matColumnDef="callDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-          <td mat-cell *matCellDef="let call"> {{ call.callDate }} </td>
-        </ng-container>
+      <!-- Call Start Time Column -->
+      <ng-container matColumnDef="callStartTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Call Start Time
+        </th>
+        <td mat-cell *matCellDef="let call">{{ call.callStartTime }}</td>
+      </ng-container>
 
-        <!-- Call Start Time Column -->
-        <ng-container matColumnDef="callStartTime">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Call Start Time</th>
-          <td mat-cell *matCellDef="let call"> {{ call.callStartTime }} </td>
-        </ng-container>
+      <!-- Call End Time Column -->
+      <ng-container matColumnDef="party">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Party</th>
+        <td mat-cell *matCellDef="let call">{{ call.party }}</td>
+      </ng-container>
 
-        <!-- Call End Time Column -->
-        <ng-container matColumnDef="callEndTime">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Call End Time</th>
-          <td mat-cell *matCellDef="let call"> {{ call.callEndTime }} </td>
-        </ng-container>
+      <!-- Bot Chat Column -->
+      <ng-container matColumnDef="botChat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Bot Chat</th>
+        <td mat-cell *matCellDef="let call">
+          <button class="btn btn-sm btn-primary" (click)="openBotChat(call)">
+            <i class="nc-icon nc-paper"></i>
+          </button>
+        </td>
+      </ng-container>
 
-        <!-- Bot Chat Column -->
-        <ng-container matColumnDef="botChat">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Bot Chat</th>
-          <td mat-cell *matCellDef="let call">
-            <button class="btn btn-sm btn-primary" (click)="openBotChat(call)">
-              {{ call.botChat }}
-            </button>
-          </td>
-        </ng-container>
-
-        <!-- Agent Chat Column -->
-        <!-- <ng-container matColumnDef="agentChat">
+      <!-- Agent Chat Column -->
+      <!-- <ng-container matColumnDef="agentChat">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Chat</th>
           <td mat-cell *matCellDef="let call"> {{ call.agentChat }} </td>
         </ng-container> -->
 
-        <!-- Table Header and Rows -->
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let call; columns: displayedColumns;"></tr>
+      <!-- Table Header and Rows -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let call; columns: displayedColumns"></tr>
 
-        <!-- No data row -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell table-message" colspan="6">No data Matching the Filter.</td>
-        </tr>
-      </table>
-    </div>
-
-
-
-
+      <!-- No data row -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell table-message" colspan="6">
+          No data Matching the Filter.
+        </td>
+      </tr>
+    </table>
+  </div>
 
   <div class="modal" [class.show]="showModal" tabindex="-1" *ngIf="showModal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Bot Chat</h5>
-          <div class="spinner-grow spinner-grow-sm  text-success" role="status">
+          <div class="spinner-grow spinner-grow-sm text-success" role="status">
             <span class="sr-only">Loading...</span>
           </div>
-          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
         </div>
         <div class="modal-body">
-
-          <div class="chat-box">
-            <div *ngFor="let chat of selectedBotChat" class="message" [ngClass]="{'bot-message': chat.sender === 'Bot', 'customer-message': chat.sender === 'Customer'}">
-              <span *ngIf="chat.sender === 'Bot' && chat === selectedBotChat[0]">
+          <div class="chat-box" #chatBox>
+            <div
+              *ngFor="let chat of selectedBotChat"
+              class="message"
+              [ngClass]="{
+                'bot-message': chat.sender === 'Bot',
+                'customer-message': chat.sender === 'Customer'
+              }"
+            >
+              <span
+                *ngIf="chat.sender === 'Bot' && chat === selectedBotChat[0]"
+              >
                 {{ chat.message }}
               </span>
               <span *ngIf="chat.sender === 'Customer'">
                 {{ chat.message }}
               </span>
-              <span *ngIf="chat.sender === 'Bot' && chat !== selectedBotChat[0]">
+              <span
+                *ngIf="chat.sender === 'Bot' && chat !== selectedBotChat[0]"
+              >
                 {{ chat.message }}
               </span>
             </div>
-
-
-
           </div>
-
         </div>
       </div>
     </div>
   </div>
-
+</div>

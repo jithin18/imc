@@ -22,8 +22,6 @@ function getbotchatdetails(callid) {
     }, // Output bind for v_json_out
   };
 
-  console.log(" -- bindParams --", bindParams);
-
   return new Promise(function (resolve, reject) {
     oracleConnection
       .executeProcedure(db_cpaasweb.poolAlias, sql, bindParams)
@@ -45,4 +43,49 @@ function getbotchatdetails(callid) {
   });
 }
 
+function getOngoingCalls() {
+  /**create or replace procedure vb_ongoing_call_report_prc (
+                                                   ref_cur_out out sys_refcursor) */
+  let dbConnection;
+  let sql = `BEGIN vb_ongoing_call_report_prc(:ref_cur_out); END;`;
+
+  let bindParams = {
+    ref_cur_out: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR }, // Output bind for ref_cur_out cursor
+  };
+
+console.log("bindParams ",bindParams);
+  return new Promise(function (resolve, reject) {
+    oracleConnection
+      .executeProcedure(db_cpaasweb.poolAlias, sql, bindParams)
+      .then(function (result) {
+        // Fetch the cursor data from `ref_cur_out`
+
+       // console.log("result ", result);
+
+        oracleConnection
+          .getCursorData(result.dbResult.outBinds.ref_cur_out, 500)
+          .then(function (cursorResult) {
+            // Resolve both `v_json_out` and the cursor data
+            dbConnection = result.dbConnection;
+
+            resolve({
+              ref_cur_out: cursorResult, // Cursor data
+            });
+          })
+          .catch(function (e) {
+            Logger.error("Error fetching cursor data in getOngoingCalls: " + e);
+            reject(err);
+          });
+      })
+      .catch(function (err) {
+        Logger.error("Error executing procedure in getOngoingCalls: " + err);
+        reject(err);
+      });
+  }).finally(function () {
+    // Release the database connection
+    oracleConnection.connRelease(dbConnection);
+  });
+}
+
 module.exports.getbotchatdetails = getbotchatdetails;
+module.exports.getOngoingCalls = getOngoingCalls;

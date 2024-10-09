@@ -3,7 +3,7 @@ var router = express.Router();
 const controller = require("../controllers/reports.controller");
 
 router.post("/getbotchat", controller.getchatLog);
-
+router.post("/getongoingcalldetails",controller.getongoingcalldetails);
 
 
 module.exports = router;
