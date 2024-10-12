@@ -24,11 +24,13 @@ import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
 import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ProductAnalyticsComponent } from './pages/reports/product-analytics/product-analytics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent
+   
   ],
   imports: [
     BrowserModule,

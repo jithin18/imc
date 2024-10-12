@@ -1,196 +1,17 @@
-// import { Component, OnInit } from '@angular/core';
-// interface CallData {
-//   callId: number;
-//   callerNumber: string;
-//   callDate: string;
-//   callStartTime: string;
-//   callEndTime: string;
-//   botChat: string;
-//   agentChat: string;
-//   botChatHistory?: { sender: string, message: string }[];  // Bot chat history
-// }
-// @Component({
-//   selector: 'app-call-history',
-//   templateUrl: './call-history.component.html',
-//   styleUrls: ['./call-history.component.scss']
-// })
-// export class CallHistoryComponent implements OnInit {
-
-//   ongoingCalls: any = [];
-//   selectedBotChat: { sender: string, message: string }[] = [];  // Chat history to display
-//   showModal: boolean = false;  // Control modal visibility
-//   displayedColumns: string[] = ['callId', 'callerNumber', 'callDate', 'callStartTime', 'callEndTime', 'botChat', 'agentChat'];
-//   selectedTimePeriod: string = 'today';
-//   constructor() { }
-
-//   ngOnInit(): void {
-//     this.ongoingCalls = [
-//       {
-//         callId: 100001,
-//         callerNumber: '8921354621',
-//         callDate: '04-10-2024',
-//         callStartTime: '18:36:33',
-//         callEndTime: '18:39:33',
-//         botChat: '+',
-//         agentChat: '-',
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Hello, how can I assist you?' },
-//           { sender: 'Customer', message: 'I have an issue with my telecom plan.' },
-//           { sender: 'Bot', message: 'Can you specify the issue?' },
-//           { sender: 'Customer', message: 'I’m being charged extra for data.' }
-//         ]
-//       },
-//       {
-//         callId: 100002,
-//         callerNumber: '8921354622',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:36:33',
-//         callEndTime: '19:39:33',
-//         botChat: '+',
-//         agentChat: '-',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100003,
-//         callerNumber: '8921354623',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:37:33',
-//         callEndTime: '19:40:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100004,
-//         callerNumber: '8921354624',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:38:33',
-//         callEndTime: '19:41:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100005,
-//         callerNumber: '8921354625',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:39:33',
-//         callEndTime: '19:42:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100006,
-//         callerNumber: '8921354626',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:40:33',
-//         callEndTime: '19:43:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100007,
-//         callerNumber: '8921354627',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:41:33',
-//         callEndTime: '19:44:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100008,
-//         callerNumber: '8921354628',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:42:33',
-//         callEndTime: '19:45:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100009,
-//         callerNumber: '8921354629',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:43:33',
-//         callEndTime: '19:46:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       },
-//       {
-//         callId: 100010,
-//         callerNumber: '8921354630',
-//         callDate: '05-10-2024',
-//         callStartTime: '19:44:33',
-//         callEndTime: '19:47:33',
-//         botChat: '+',
-
-//         botChatHistory: [
-//           { sender: 'Bot', message: 'Welcome, how can I help you today?' },
-//           { sender: 'Customer', message: 'I have poor network coverage.' },
-//           { sender: 'Bot', message: 'Let me check your area for issues.' }
-//         ]
-//       }
-//     ];
-//   }
-
-//   openBotChat(call: CallData): void {
-//     this.selectedBotChat = call.botChatHistory || [];
-//     this.showModal = true;
-//   }
-
-//   // Close modal
-//   closeModal(): void {
-//     this.showModal = false;
-//   }
-
-// }
-
 import {
   AfterViewChecked,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { interval, Subscription } from "rxjs";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort"; 
+import { MatTableDataSource } from "@angular/material/table";
+import { Subscription } from "rxjs";
 import { OngoingCalldtlsService } from "services/ongoing-calldtls.service";
+import { ExcelService } from "services/excel.service";
 
 interface CallData {
   callId: number;
@@ -199,8 +20,9 @@ interface CallData {
   callStartTime: string;
   callEndTime: string;
   botChat: string;
-  callRecordings:string;
+  callRecordings: string;
   botChatHistory?: { id: number; sender: string; message: string }[]; // Bot chat history
+  
 }
 
 @Component({
@@ -208,11 +30,14 @@ interface CallData {
   templateUrl: "./call-history.component.html",
   styleUrls: ["./call-history.component.scss"],
 })
-export class CallHistoryComponent implements OnInit, AfterViewChecked {
-  ongoingCalls: any = [];
-  selectedBotChat: { sender: string; message: string }[] = []; // Chat history to display
-  showModal: boolean = false; // Control modal visibility
+export class CallHistoryComponent implements OnInit, AfterViewChecked, OnDestroy {
+  ongoingCalls = new MatTableDataSource<CallData>([]);
+  selectedBotChat: { sender: string; message: string }[] = [];
+  showModal: boolean = false;
+  loading = false;
   selectedTimePeriod: string = 'today';
+  totalSentiment: number = 0;
+  callDetails: any[] = [];
   displayedColumns: string[] = [
     "callId",
     "callerNumber",
@@ -221,35 +46,43 @@ export class CallHistoryComponent implements OnInit, AfterViewChecked {
     "callEndTime",
     "botChat",
     "callRecordings"
-
   ];
-  private intervalId: any;
+
+  @ViewChild("chatBox") private chatBox: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator; // Use definite assignment assertion
+  @ViewChild(MatSort) sort!: MatSort; 
+  private pollingSubscription!: Subscription; // Ensure subscription is initialized
   public dateRange: { from_date: string; to_date: string } | undefined;
-  pollingSubscription: Subscription;
-  constructor(private calldtlsservice: OngoingCalldtlsService) {}
+
+  constructor(private calldtlsservice: OngoingCalldtlsService,private excelService: ExcelService) {}
 
   ngOnInit(): void {
-    // Set up interval to call a function every 5 seconds
-   // this.livecallreport();
     this.setDateRange();
   }
 
+  ngAfterViewInit(): void {
+    this.ongoingCalls.sort = this.sort;
+    this.ongoingCalls.paginator = this.paginator; // Bind paginator after view init
+    this.livecallreport(); // Fetch initial data after setting paginator
+  }
+
   livecallreport() {
+    if (!this.dateRange) return;
+
     this.calldtlsservice.getcallhistory(this.dateRange).subscribe((resp: any) => {
-      console.log(resp,"rspp");
-      
-      this.ongoingCalls = resp.data;
-      console.log(this.ongoingCalls, "ongoingCalls");
-      
+      this.ongoingCalls.data = resp.data; // Update the MatTableDataSource with the response data
+      console.log(resp.data, "livecallreport");
     });
   }
+
+ 
+  
 
   setDateRange() {
     const currentDate = new Date();
     let fromDate: Date;
     let toDate: Date = currentDate;
-  console.log(this.selectedTimePeriod, "this.selectedTimePeriod");
-  
+
     switch (this.selectedTimePeriod) {
       case 'today':
         fromDate = toDate;
@@ -267,55 +100,122 @@ export class CallHistoryComponent implements OnInit, AfterViewChecked {
         fromDate = toDate;
         break;
     }
-  
+
     this.dateRange = {
       from_date: this.formatDate(fromDate),
       to_date: this.formatDate(toDate),
     };
-  
-    console.log('Selected Date Range:', this.dateRange);
-  
-    // Call the commonservice method and subscribe to the response
-  
-  this.livecallreport()
 
+    this.livecallreport(); // Fetch the call history after setting the date range
+  
   }
+
+  // downloadCallDetails() {
+
+  //   console.log(this.dateRange, "daterane");
+    
+  //   if (this.dateRange) {
+  //     // Fetch call history data first
+  //     this.calldtlsservice.getcallhistory(this.dateRange).subscribe((resp: any) => {
+  //       console.log(resp, "respx");
+
+  //       // Assuming resp.data contains the required call history
+  //       this.callDetails = resp.data; // Store the fetched call history
+  //      console.log(this.callDetails,"call details");
+       
+  //       const flag = 'Call Details for ' + this.dateRange.from_date + ' to ' + this.dateRange.to_date;
+  //       this.excelService.exportAsExcelFile(this.callDetails, flag);
+  //     });
+  //   } else {
+  //     console.error('Date range is not selected.');
+  //     // Optionally show a user-friendly message to the user
+  //   }
+  // }
+
+  downloadCallDetails() {
+    this.loading = true; // Set loading to true when starting the download
+    
+  
+    if (this.dateRange) {
+      this.calldtlsservice.getcallhistory(this.dateRange).subscribe((resp: any) => {
+       
+  
+        // Process response and export logic
+        const processedCalls = resp.data.map((call) => {
+          // Process botChat in a cleaner way to avoid multiple JSON.parse calls
+          return {
+            ...call,
+            botChat: this.processBotChat(call.botChat),
+          };
+        });
+  
+    
+  
+        const flag = 'Call Details for ' + this.dateRange.from_date + ' to ' + this.dateRange.to_date;
+  
+        this.excelService.exportAsExcelFile(processedCalls, flag);
+        this.loading = false; // Set loading to false after processing
+      }, error => {
+        console.error('Error fetching call history:', error);
+        this.loading = false; // Ensure loading is reset on error
+      });
+    } else {
+      console.error('Date range is not selected.');
+      this.loading = false; // Reset loading if no date range is selected
+    }
+  }
+  
+  private processBotChat(botChat: string): string {
+    if (!botChat) {
+      return "No Bot Chat";
+    }
+  
+    try {
+      const parsedBotChat = JSON.parse(botChat);
+      return parsedBotChat.map((chat: any) => `Q: ${chat.question}\nA: ${chat.answer}`).join("\n\n");
+    } catch (error) {
+      console.error("Error parsing botChat:", error);
+      return "Invalid botChat data"; // Fallback if parsing fails
+    }
+  }
+
   formatDate(date: Date): string {
     const day = ('0' + date.getDate()).slice(-2);
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   }
+
+ 
+  
   openBotChat(call: CallData): void {
+    if (!Array.isArray(call.botChatHistory)) {
+      call.botChatHistory = [];
+    }
     this.selectedBotChat = call.botChatHistory;
+
     this.showModal = true;
 
-    // Start polling the service every second (1000 ms)
     this.calldtlsservice.getagentcalls(call.callId).subscribe((resp: any) => {
       let data = resp.data;
+      let data1 = resp.sentiment;
+      this.totalSentiment = data1;
 
       data.forEach((element) => {
-        // Check if the element is already in botChatHistory by matching an identifier, e.g., element.id
-        
-
-          call.botChatHistory.push({
-            id: element.id,
-            sender: "Customer",
-            message: element.question,
-          });
-          call.botChatHistory.push({
-            id: element.id,
-            sender: "Bot",
-            message: element.answer,
-          });
-        
+        call.botChatHistory.push({
+          id: element.id,
+          sender: "Customer",
+          message: element.question,
+        });
+        call.botChatHistory.push({
+          id: element.id,
+          sender: "Bot",
+          message: element.answer,
+        });
       });
     });
   }
 
-  @ViewChild("chatBox") private chatBox: ElementRef;
-
-  // Scroll to the bottom of the chat box
   private scrollToBottom(): void {
     if (this.chatBox) {
       this.chatBox.nativeElement.scrollTop =
@@ -323,7 +223,6 @@ export class CallHistoryComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  // Scroll after each view update
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
@@ -336,11 +235,6 @@ export class CallHistoryComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnDestroy(): void {
-    // Clear interval on component destruction to prevent memory leaks
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-
     if (this.pollingSubscription) {
       this.pollingSubscription.unsubscribe();
     }

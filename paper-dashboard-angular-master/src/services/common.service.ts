@@ -57,5 +57,20 @@ import { Observable, Subject } from "rxjs";
           this.httpOptions
         );
       }
+
+      gettopkeywords(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/gettopkeywords`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
+      gettopproduct(formattedjson){
+        return this.http.post(
+          `${this.rootURL}dashboard/gettopproduct`, 
+          formattedjson,
+          this.httpOptions
+        );
+      }
       
   }

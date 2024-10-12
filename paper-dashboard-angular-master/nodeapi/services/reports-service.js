@@ -11,7 +11,7 @@ var db_cpaasweb = dbConfig.database.cpaas_web;
 function getbotchatdetails(callid) {
   /*vb_live_bot_query_prc(n_call_in in   number,v_json_out out varchar2)*/
   let dbConnection;
-  let sql = `BEGIN vb_live_bot_query_prc(:n_call_in, :v_json_out); END;`;
+  let sql = `BEGIN vb_live_bot_query_prc(:n_call_in, :v_json_out,:n_sentimet); END;`;
 
   let bindParams = {
     n_call_in: callid, // Stringify req for input
@@ -20,17 +20,22 @@ function getbotchatdetails(callid) {
       type: oracledb.STRING,
       maxSize: 5000,
     }, // Output bind for v_json_out
+    n_sentimet: {
+      dir: oracledb.BIND_OUT,
+      type: oracledb.NUMBER,
+    },
   };
 
   return new Promise(function (resolve, reject) {
     oracleConnection
       .executeProcedure(db_cpaasweb.poolAlias, sql, bindParams)
       .then(function (result) {
-        dbConnection = result.dbConnection;
+        dbConnection = result.dbConnection;   
         const v_json_out = result.dbResult.outBinds.v_json_out;
-
+        const n_sentimet = result.dbResult.outBinds.n_sentimet;
         resolve({
           v_json_out: v_json_out, // Output from `v_json_out`
+          n_sentimet: n_sentimet,
         });
       })
       .catch(function (err) {

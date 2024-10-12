@@ -1,0 +1,167 @@
+
+// .table {
+//   width: 100%;
+//   text-align: left;
+// }
+
+// th, td {
+//   padding: 8px;
+//   text-align: left;
+// }
+
+// .mat-elevation-z8 {
+//   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+// }
+
+// .popup {
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   background-color: white;
+//   padding: 20px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   z-index: 1000;
+//   border-radius: 8px;
+//   width: 80%;
+//   max-width: 600px;
+//   overflow-y: auto; /* Ensure scrolling for overflow */
+// }
+
+// .popup-content {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: stretch;
+// }
+
+// .popup-header {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   width: 100%;
+//   margin-bottom: 20px;
+// }
+
+// .popup-header h3 {
+//   margin: 0; /* Remove extra margin for better alignment */
+// }
+
+// .popup-header button {
+//   padding: 8px 16px;
+//   background-color: #ff0000; /* Red background color */
+//   color: white;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+// }
+
+// .popup-header button:hover {
+//   background-color: #cc0000; /* Darker red on hover */
+// }
+
+// .popup-content .close-btn {
+//   padding: 10px 20px;
+//   background-color: #007bff; /* Keep the close button blue */
+//   color: white;
+//   border: none;
+//   border-radius: 4px;
+//   cursor: pointer;
+//   margin-top: 10px; /* Space between the table and the close button */
+// }
+
+// .popup-content .close-btn:hover {
+//   background-color: #0056b3; /* Blue hover effect for close button */
+// }
+.popup {
+  margin-left:10%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Softer shadow for a modern look */
+  z-index: 1000;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh; /* Limit max height of the popup */
+  display: flex;
+  flex-direction: column; /* Allow stacking of elements */
+  overflow: hidden; /* Prevent overflow outside the popup */
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure full height usage */
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.popup-header h3 {
+  margin: 0; /* Remove default margin */
+  font-size: 1.5rem; /* Increase font size for header */
+}
+
+.table-container {
+  flex-grow: 1; /* Allow this div to grow and take available space */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-right: 10px; /* Add some space to avoid overlap with scrollbar */
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse; /* Collapses borders for a cleaner look */
+}
+
+th, td {
+  padding: 10px; /* Increase padding for better spacing */
+  border: 1px solid #dee2e6; /* Add a border for a clear separation */
+}
+
+th {
+  background-color: #f1f1f1; /* Light background for headers */
+  font-weight: bold; /* Bold text for headers */
+}
+
+.close-btn {
+  padding: 10px 20px;
+  background-color: #e60000; /* Blue background for close button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px; /* Space between the table and the close button */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.close-btn:hover {
+  background-color: #e60000; /* Darker blue on hover */
+}
+
+.nowrap {
+  white-space: nowrap; /* Prevent breaking date and time onto two lines */
+}
+
+/* Adjust the width of the time columns */
+.time-column {
+  width: 200px; /* Adjust width based on content */
+}
+
+/* Style for making "Download" bold and the rest of the header text smaller */
+.bold-text {
+  font-weight: bold;
+}
+
+th.mat-header-cell {
+  font-size: 0.875rem; /* Set small size for the entire header */
+}
+
+

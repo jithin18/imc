@@ -1,0 +1,108 @@
+<!-- Table to display Keywords and Percentages -->
+<div class="mat-elevation-z8 table-responsive">
+  <table mat-table [dataSource]="refCurData" class="table table-striped table-report" matSort>
+    <!-- Keyword Column -->
+    <ng-container matColumnDef="keyword">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
+      <td mat-cell *matCellDef="let item" (click)="showDetailedProduct(item.KEYWORD)">
+        {{ item.KEYWORD }}
+      </td>
+    </ng-container>
+
+    <!-- Percentage Column -->
+    <ng-container matColumnDef="percentage">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>% of Enquiries</th>
+      <td mat-cell *matCellDef="let item">{{ item.PERCENTAGE }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="downloadExcel">
+      <th mat-header-cell *matHeaderCellDef>
+        
+        <span class="small-text">Call Details and Queries</span>
+       
+      </th>
+      <td mat-cell *matCellDef="let item">
+          <button mat-button (click)="showDetailedProduct1(item.KEYWORD)">Download</button>
+      </td>
+  </ng-container>
+
+    <!-- Table Header and Rows -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let item; columns: displayedColumns"></tr>
+
+    <!-- No data row -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell table-message" colspan="2">No data available.</td>
+    </tr>
+  </table>
+</div>
+
+
+<!-- <div class="popup" *ngIf="showPopup">
+  <div class="popup-content" style="max-height: 500px; overflow-y: auto;">
+   
+    <div class="popup-header" style="display: flex; justify-content: space-between; align-items: center;">
+      <h3>Call Details for {{ selectedProduct }}</h3>
+      <button mat-button (click)="downloadPopupDataAsExcel()">Download Call Details</button>
+    </div>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Call ID</th>
+          <th>DNI</th>
+          <th>CLI</th>
+          <th>Connect Time</th>
+          <th>End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of callDetails">
+          <td>{{ detail.CallID }}</td>
+          <td>{{ detail.Dni }}</td>
+          <td>{{ detail.Cli }}</td>
+          <td>{{ detail.ConnectTime }}</td>
+          <td>{{ detail.EndTime }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="closePopup()">Close</button>
+  </div>
+</div> -->
+
+<div class="popup" *ngIf="showPopup">
+  <div class="popup-content" style="max-height: 600px; overflow-y: auto;">
+    <!-- Flexbox container to align heading and button on the same row -->
+    <div class="popup-header">
+      <h3>Call Details for {{ selectedProduct }}</h3>
+      <button mat-button (click)="downloadPopupDataAsExcel()">Download Call Details</button>
+    </div>
+
+    <div class="table-container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Call ID</th>
+            <th>DNI</th>
+            <th>CLI</th>
+            <th class="time-column">Connect Time</th>
+            <th class="time-column">End Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detail of callDetails">
+            <td>{{ detail.CallID }}</td>
+            <td>{{ detail.Dni }}</td>
+            <td>{{ detail.Cli }}</td>
+            <td class="nowrap">{{ detail.ConnectTime }}</td>
+            <td class="nowrap">{{ detail.EndTime }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <button class="close-btn" (click)="closePopup()">Close</button>
+  </div>
+</div>
+
+

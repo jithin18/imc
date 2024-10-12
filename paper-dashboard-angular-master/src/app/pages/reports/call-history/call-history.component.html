@@ -10,6 +10,13 @@
         <option value="last7days">Last 7 Days</option>
         <option value="last30days">Last 30 Days</option>
       </select>
+      <button class="btn btn-sm ms-auto" 
+        (click)="downloadCallDetails()" 
+        [disabled]="loading"
+        style=" margin-right: 55%;">
+  {{ loading ? 'Downloading...' : 'Download Call Details' }}
+</button>
+
     </div>
   </div>
   
@@ -22,12 +29,11 @@
     .form-label {
       font-size: 14px; /* Adjust label font size for better alignment */
     }
+  
   </style>
   
   <div class="card-body">
-    <!-- <div class="small text-muted">
-        Last 30 Days Report. For Data beyond last 30 days, please access "Download Reports" from the menu
-      </div> -->
+    
   
     <!-- Table -->
     <div class="mat-elevation-z8 table-responsive">
@@ -37,82 +43,96 @@
         [dataSource]="ongoingCalls"
         matSort
       >
-
         <!-- Call ID Column -->
         <ng-container matColumnDef="callId">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Call ID</th>
           <td mat-cell *matCellDef="let call">{{ call.callId }}</td>
         </ng-container>
-  
+    
         <!-- Caller Number Column -->
         <ng-container matColumnDef="callerNumber">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Caller Number</th>
           <td mat-cell *matCellDef="let call">{{ call.callerNumber }}</td>
         </ng-container>
-  
+    
         <!-- Call Date Column -->
         <ng-container matColumnDef="callDate">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           <td mat-cell *matCellDef="let call">{{ call.callDate }}</td>
         </ng-container>
-  
+    
         <!-- Call Start Time Column -->
         <ng-container matColumnDef="callStartTime">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Call Start Time
-          </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Call Start Time</th>
           <td mat-cell *matCellDef="let call">{{ call.callStartTime }}</td>
         </ng-container>
-  
+    
         <!-- Call End Time Column -->
         <ng-container matColumnDef="callEndTime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Call End Time</th>
           <td mat-cell *matCellDef="let call">{{ call.callEndTime }}</td>
         </ng-container>
-  
+    
         <!-- Bot Chat Column -->
         <ng-container matColumnDef="botChat">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Bot Chat</th>
           <td mat-cell *matCellDef="let call">
-            <button class="btn btn-sm btn-primary" (click)="openBotChat(call)">
-              <i class="nc-icon nc-paper"></i>
-            </button>
+            <ng-container *ngIf="call.botChat; else noChatTemplate">
+              <button class="btn btn-sm btn-primary" (click)="openBotChat(call)">
+                <i class="nc-icon nc-paper"></i>
+              </button>
+            </ng-container>
+            <ng-template #noChatTemplate>No Chat</ng-template>
           </td>
         </ng-container>
-
-         <ng-container matColumnDef="callRecordings">
+    
+        <!-- Call Recordings Column -->
+        <ng-container matColumnDef="callRecordings">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Chat</th>
           <td mat-cell *matCellDef="let call">
-            <audio controls>
-              <source src={{call.callRecordings}} type="audio/wav">
-              Your browser does not support the audio element.
-            </audio>
+            <ng-container *ngIf="call.callRecordings !== 'No Voice'; else noVoiceTemplate">
+              <audio controls>
+                <source [src]="call.callRecordings" type="audio/wav" />
+                Your browser does not support the audio element.
+              </audio>
+            </ng-container>
+            <ng-template #noVoiceTemplate>No Voice</ng-template>
           </td>
         </ng-container>
-  
-       
-  
+    
         <!-- Table Header and Rows -->
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let call; columns: displayedColumns"></tr>
-  
+    
         <!-- No data row -->
         <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell table-message" colspan="6">
+          <td class="mat-cell table-message" colspan="7">
             No data Matching the Filter.
           </td>
         </tr>
       </table>
+    
+      <!-- Paginator -->
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons
+        [pageSize]="5">
+      </mat-paginator>
     </div>
+    
+    
+    
+    
   
+
+ 
     <div class="modal" [class.show]="showModal" tabindex="-1" *ngIf="showModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+          <!-- Modal Header -->
           <div class="modal-header">
             <h5 class="modal-title">Bot Chat</h5>
-            <div class="spinner-grow spinner-grow-sm text-success" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
+            
             <button
               type="button"
               class="btn-close"
@@ -120,6 +140,8 @@
               (click)="closeModal()"
             ></button>
           </div>
+    
+          <!-- Modal Body -->
           <div class="modal-body">
             <div class="chat-box" #chatBox>
               <div
@@ -130,24 +152,28 @@
                   'customer-message': chat.sender === 'Customer'
                 }"
               >
-                <span
-                  *ngIf="chat.sender === 'Bot' && chat === selectedBotChat[0]"
-                >
+                <span *ngIf="chat.sender === 'Bot' && chat === selectedBotChat[0]">
                   {{ chat.message }}
                 </span>
                 <span *ngIf="chat.sender === 'Customer'">
                   {{ chat.message }}
                 </span>
-                <span
-                  *ngIf="chat.sender === 'Bot' && chat !== selectedBotChat[0]"
-                >
+                <span *ngIf="chat.sender === 'Bot' && chat !== selectedBotChat[0]">
                   {{ chat.message }}
                 </span>
               </div>
             </div>
           </div>
+    
+          <!-- Modal Footer for Total Sentiment -->
+          <div class="modal-footer d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Total Sentiment: {{ totalSentiment }}%</h5>
+           
+            
+          </div>
         </div>
       </div>
     </div>
+    
   </div>
   

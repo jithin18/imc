@@ -9,8 +9,8 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard',     title: 'V!Bo Dashboard',         icon:'nc-bank',       class: '' },
-
+    { path: '/dashboard',     title: 'AIBot Dashboard',         icon:'nc-bank',       class: '' },
+ 
      
     { path: '/reports/ongoing-calls', title: 'Ongoing Calls', icon: 'nc-headphones', class: '' },
    { path: '/reports/call-history', title: 'Call History', icon: 'nc-single-copy-04', class: '' },

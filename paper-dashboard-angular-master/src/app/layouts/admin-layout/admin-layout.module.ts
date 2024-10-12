@@ -9,6 +9,7 @@ import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { OngoingCallsComponent } from '../../pages/reports/ongoing-calls/ongoing-calls.component';
 import { CallHistoryComponent } from '../../pages/reports/call-history/call-history.component';
 import { UserComponent } from '../../pages/user/user.component';
+import {ProductAnalyticsComponent} from '../../pages/reports/product-analytics/product-analytics.component';
 import { TableComponent } from '../../pages/table/table.component';
 import { TypographyComponent } from '../../pages/typography/typography.component';
 import { IconsComponent } from '../../pages/icons/icons.component';
@@ -32,7 +33,11 @@ import { MatInputModule } from '@angular/material/input'; // For input elements
     FormsModule,
     NgbModule,
     MatTableModule,         // For using mat-table
-    MatSortModule         // Optional: for input fields
+    MatSortModule ,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   declarations: [
     DashboardComponent,
@@ -44,7 +49,8 @@ import { MatInputModule } from '@angular/material/input'; // For input elements
     MapsComponent,
     NotificationsComponent,
     OngoingCallsComponent,
-    CallHistoryComponent
+    CallHistoryComponent,
+    ProductAnalyticsComponent
   ]
 })
 export class AdminLayoutModule {}

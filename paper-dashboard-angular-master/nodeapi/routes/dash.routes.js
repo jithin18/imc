@@ -9,5 +9,6 @@ router.all("/getfaq",controller.getfaq);
 router.all("/getqueryanalysis",controller.getqueryanalysis);
 router.all("/getbotsummary",controller.getbotsummary);
 router.all("/getkeywords",controller.getkeywords);
-
+router.all("/gettopkeywords",controller.gettopkeywords);
+router.all("/gettopproduct",controller.gettopproduct);
 module.exports = router;

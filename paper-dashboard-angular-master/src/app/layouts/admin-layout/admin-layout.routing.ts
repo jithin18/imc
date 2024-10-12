@@ -10,6 +10,7 @@ import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { NotificationsComponent } from '../../pages/notifications/notifications.component';
 import { UpgradeComponent } from '../../pages/upgrade/upgrade.component';
+import{ProductAnalyticsComponent} from '../../pages/reports/product-analytics/product-analytics.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -21,5 +22,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'reports/ongoing-calls', component: OngoingCallsComponent },  // New route
-  { path: 'reports/call-history',  component: CallHistoryComponent }    // New route
+  { path: 'reports/call-history',  component: CallHistoryComponent }  ,
+  {path: 'reports/product-analytics',  component: ProductAnalyticsComponent}  // New route
 ];

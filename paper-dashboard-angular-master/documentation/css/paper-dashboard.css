@@ -8661,7 +8661,7 @@ img {
       float: left;
       margin-right: 12px;
       line-height: 30px;
-      width: 34px;
+      width: 70px;
       text-align: center;
       color: rgba(255, 255, 255, 0.5);
       position: relative; }
@@ -8700,7 +8700,7 @@ img {
     .off-canvas-sidebar .logo a.logo-mini {
       opacity: 0;
       float: left;
-      width: 34px;
+      width: 78px;
       text-align: center;
       margin-left: 10px;
       margin-right: 12px; }
@@ -9043,8 +9043,8 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 34px;
-  width: 34px;
+  height: 60px;
+  width: 60px;
   background: #FFFFFF;
   border-radius: 50%;
   text-align: center;

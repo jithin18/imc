@@ -76,11 +76,36 @@ exports.getbotsummary = async function (req, res, next) {
 
 exports.getkeywords = async function (req, res, next) {
     try {
-        console.log(req.body, "req.body");
+     const result = await dashservice.getkeywords(req.body);
+
+        return res.status(200).json({   
+            status: 200,            
+            data: {     
+               
+                ref_cur: result.ref_cur 
+            }
         
-        const result = await dashservice.getkeywords(req.body);
+            
+        });
+        
+
+    } catch (e) {        
+        Logger.error("configuration.Controller.getkeywords() : " + e.message);
+        return res.status(400).json({ 
+            status: 400, 
+            message: "Error in fetching call details: " + e.message 
+        });
+    }
+
+}
+
+exports.gettopkeywords = async function (req, res, next) {
+    try {
+        console.log(req.body, "req.body topkeywords");
+        
+        const result = await dashservice.gettopkeywords(req.body);
       
-       console.log(result,"xyz");
+       console.log(result,"top keywords xyz");
        
         
         return res.status(200).json({   
@@ -88,6 +113,36 @@ exports.getkeywords = async function (req, res, next) {
             data: {     
                
                 ref_cur: result.ref_cur 
+            }
+        
+            
+        });
+        
+
+    } catch (e) {        
+        Logger.error("configuration.Controller.getkeywords() : " + e.message);
+        return res.status(400).json({ 
+            status: 400, 
+            message: "Error in fetching call details: " + e.message 
+        });
+    }
+
+}
+
+exports.gettopproduct = async function (req, res, next) {
+    try {
+        
+        
+        const result = await dashservice.gettopproduct(req.body);
+      
+      
+       
+        
+        return res.status(200).json({   
+            status: 200,            
+            data: {     
+               
+                ref_cur: result.ref_out 
             }
         
             

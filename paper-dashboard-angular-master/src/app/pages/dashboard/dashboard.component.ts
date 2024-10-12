@@ -1,11 +1,13 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ElementRef, Renderer2 } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { ChartEvent } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import * as bootstrap from 'bootstrap';
 import { ExcelService } from 'services/excel.service';
 import { commonservice } from 'services/common.service';
+import { DataService } from 'services/DataService.service';
+import { Router } from '@angular/router';
 //import {Target} from 'lucide-angular'
 interface Question {
   text: string; // The question text
@@ -33,15 +35,21 @@ export class DashboardComponent implements OnInit {
   selectedTimePeriod: string = 'today';
   selectedSentiment: string = 'all';
   totalCalls: number = 0;
+  topThreeProducts: any[] = [];
+  fullProductData: any = {};
   callDuration: string = ''; // Store as string for display purposes
   avgCallHandlingTime: string = ''; // Store as string for display purposes
   botAccuracy: string = '0%'; // Initialize the bot accuracy value
   responseTime: string = '0'; // Initialize the response time value
   avgsentimentscore: string = '0';
   agentTransferRatio: string = '0%'; 
+  products:string='';
+  productcount:number=0;
+  productpercentage:string='0%';
   public allQuestions: Question[] = [];
+  modalTitle: string = 'Top Reasons: Positive';
   public dateRange: { from_date: string; to_date: string } | undefined;
-  constructor(private excelService: ExcelService,private commonservice:commonservice) {}
+  constructor(private excelService: ExcelService,private commonservice:commonservice,private dataservice:DataService,private router: Router,private elementRef: ElementRef, private renderer: Renderer2) {}
   ngOnInit() {
     this.chartColor = "#FFFFFF";
    
@@ -169,12 +177,39 @@ console.log(this.selectedTimePeriod, "this.selectedTimePeriod");
   this.getBotAccuracy();
   //this.getbotkeywords();
   this.loadTransferRatioData();
+  this.loadtopproducts();
 }
+// loadtopproducts(){
+//   console.log(this.dateRange,"ttt");
+  
+//   this.commonservice.gettopkeywords(this.dateRange).subscribe((data: any) => {
+//     console.log(data, "load top products");
+
+//     if (data.status === 200) {
+//     //   const response = JSON.parse(data.data.v_json_out); // Parse the JSON string
+      
+//     //   // Assign the values from the response
+//     //   this.botAccuracy = response.bot_accuracy ? `${response.bot_accuracy}%` : '0%';
+   
+      
+//     //   this.responseTime = response.resp_time.toString(); // Convert to string
+    
+      
+//     //   this.agentTransferRatio = response.agent_trnsfr_ratio ? `${response.agent_trnsfr_ratio}%` : '0%';
+//     // this.avgsentimentscore  =response.sentiment_score.toString();
+      
+//     //   console.log(this.botAccuracy, this.responseTime, this.agentTransferRatio);
+//     }
+//   });
+// }
 
 // Function to create and initialize the chart
 
 
 // Function to update the chart with new data from ref_cur_out
+
+
+
 updatePeakHourChart(refCurOut: any[]) {
   // Initialize the data array with zeros for all 24 hours
   const peakHourData = new Array(24).fill(0);
@@ -232,6 +267,10 @@ loadSentimentData() {
       const chartData = total > 0
         ? [(positive / total) * 100, (neutral / total) * 100, (negative / total) * 100]
         : [100, 0, 0];  // Fallback to all positive if the total is 0 (unlikely but a safe guard)
+      console.log(chartData, "chartData");
+      document.getElementById('value1').textContent = `${String(chartData[0]).substring(0, 5)}`;
+      document.getElementById('value2').textContent = `${String(chartData[1]).substring(0, 5)}`;
+      document.getElementById('value3').textContent = `${String(chartData[2]).substring(0, 5)}`;
 
       // Update the chart data and refresh the chart
       this.sentimentChart.data.datasets[0].data = chartData;
@@ -373,7 +412,8 @@ downloadKeywords(flag: string) {
               neutral: question.sentiment === 'neutral' ? '✓' : ''
             }));
           }
-
+      console.log(transformedData, "Transformed Data");
+      
           // Export the filtered data to Excel
           this.excelService.exportAsExcelFile(transformedData, flag + 'Keywords');
         } else {
@@ -440,12 +480,15 @@ createSentimentChart() {
           switch (activeIndex) {
             case 0:
               this.selectedSentiment = 'positive';
+              this.modalTitle = 'Top Reasons: Positive';
               break;
             case 1:
               this.selectedSentiment = 'neutral';
+              this.modalTitle = 'Top Reasons: Neutral';
               break;
             case 2:
               this.selectedSentiment = 'negative';
+              this.modalTitle = 'Top Reasons: Negative';
               break;
             default:
               this.selectedSentiment = 'positive';  // Default to positive if something goes wrong
@@ -1138,6 +1181,72 @@ loadTransferRatioData() {
       }
     });
   }
+  loadtopproducts() {
+    console.log(this.dateRange, "ttt");
   
+    this.commonservice.gettopkeywords(this.dateRange).subscribe((data: any) => {
+      console.log(data, "load top products");
+  
+      if (data.status === 200) {
+        // Sort the products by percentage in descending order
+        const sortedProducts = data.data.ref_cur.sort((a: any, b: any) => 
+          parseFloat(b.PERCENTAGE) - parseFloat(a.PERCENTAGE)
+        );
+  
+        // Get the top three products
+        this.topThreeProducts = sortedProducts.slice(0, 3);
+        this.fullProductData = data;
+     
+      }
+    });
+  }
+  // onContainerClick(event: MouseEvent): void {
+  //   const target = event.target as HTMLElement;
     
+  //   // Get all the card elements (including card bodies) to check if the click was inside any of them
+  //   const cardElements = this.elementRef.nativeElement.querySelectorAll('.card-inner');
+    
+  //   // Check if the click was inside any of the card elements
+  //   const clickedInsideCard = Array.from(cardElements).some((cardElement) => {
+  //     const element = cardElement as HTMLElement;
+  //     return element.contains(target);
+  //   });
+    
+  //   // Check if the clicked element or any of its parents is an <a> tag (for links)
+  //   const isLinkClicked = target.closest('a');
+    
+  //   console.log(this.dateRange, "xxx");
+  //   console.log(this.fullProductData, "ccc");
+     
+  
+  //   if (!clickedInsideCard && !isLinkClicked) {
+  //     if (this.dateRange && this.fullProductData) {
+  //       this.dataservice.setProductData(this.fullProductData, this.dateRange);
+  //       this.router.navigate(['reports/product-analytics']);
+  //     } else {
+  //       console.error('Error: DateRange or fullProductData is undefined!');
+  //     }
+  //   }
+  // }
+
+  onContainerClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+  
+    // Check if the clicked element or any of its parents is an <a> tag (for links)
+    const isLinkClicked = target.closest('a');
+  
+   
+  
+    // Always navigate when clicking anywhere inside or outside the card
+    if (this.dateRange && this.fullProductData) {
+      this.dataservice.setProductData(this.fullProductData, this.dateRange);
+      this.router.navigate(['reports/product-analytics']);
+    } else {
+      console.error('Error: DateRange or fullProductData is undefined!');
+    }
+  }
+  
+  
+  
+
 }

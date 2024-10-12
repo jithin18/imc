@@ -4,11 +4,15 @@ const { Logger } = require("../_helpers/logger");
 
 exports.getchatLog = async function (req, res, next) {
   try {
+   
+    
     const result = await reportsService.getbotchatdetails(req.body.callId);
-
+    
+    
     return res.status(200).json({
       status: 200,
       data: JSON.parse(result.v_json_out),
+      sentiment: result.n_sentimet,
     });
   } catch (e) {
     Logger.error(

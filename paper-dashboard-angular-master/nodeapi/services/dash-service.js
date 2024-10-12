@@ -110,7 +110,7 @@ function getkeywords(req) {
         ref_cur: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } // Output bind for ref_cur_out cursor
     };
 
-    console.log(bindParams, "bindParamskeyword");
+    
    
     return new Promise(function (resolve, reject) {
         // Execute the procedure
@@ -124,7 +124,7 @@ function getkeywords(req) {
                     .getCursorData(result.dbResult.outBinds.ref_cur, 500)
                     .then(function (cursorResult) {
                         // Resolve with the cursor data
-                        console.log(cursorResult, "cursorResult12");
+                        
                         
                         resolve({
                             ref_cur: cursorResult // Cursor data
@@ -137,6 +137,101 @@ function getkeywords(req) {
             })
             .catch(function (err) {
                 Logger.error("Error executing procedure in getkeywords: " + err);
+                reject(err);
+            });
+    }).finally(function () {
+        // Release the database connection
+        if (dbConnection) {
+            oracleConnection.connRelease(dbConnection);
+        }
+    });
+}
+
+function gettopkeywords(req) {
+    let dbConnection;
+    let sql = `BEGIN vb_top_three_produts_prc(v_json_in => :v_json_in, ref_cur => :ref_cur); END;`;
+
+    // Prepare bind parameters for input and output
+    let bindParams = {
+        v_json_in: { val: JSON.stringify(req), dir: oracledb.BIND_IN, type: oracledb.STRING }, // Stringify req for input
+        ref_cur: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } // Output bind for ref_cur_out cursor
+    };
+
+    console.log(bindParams, "bindParams_gettopkeywords");
+    
+   
+    return new Promise(function (resolve, reject) {
+        // Execute the procedure
+        oracleConnection
+            .executeProcedure(db_cpaasweb.poolAlias, sql, bindParams)
+            .then(function (result) {
+                dbConnection = result.dbConnection; // Store the connection
+                
+                // Fetch the cursor data from `ref_cur_out`
+                oracleConnection
+                    .getCursorData(result.dbResult.outBinds.ref_cur, 500)
+                    .then(function (cursorResult) {
+                        // Resolve with the cursor data
+                        console.log(cursorResult, "cursorResult_gettopkeywords");
+                        
+                        resolve({
+                            ref_cur: cursorResult // Cursor data
+                        });
+                    })
+                    .catch(function (err) {
+                        Logger.error("Error fetching cursor data in gettopkeywords: " + err);
+                        reject(err);
+                    });
+            })
+            .catch(function (err) {
+                Logger.error("Error executing procedure in gettopkeywords: " + err);
+                reject(err);
+            });
+    }).finally(function () {
+        // Release the database connection
+        if (dbConnection) {
+            oracleConnection.connRelease(dbConnection);
+        }
+    });
+}
+function gettopproduct(req) {
+    let dbConnection;
+    let sql = `BEGIN vb_top_product_rept_prc(v_json_in => :v_json_in, ref_out  => :ref_out ); END;`;
+
+    // Prepare bind parameters for input and output
+    let bindParams = {
+        v_json_in: { val: JSON.stringify(req), dir: oracledb.BIND_IN, type: oracledb.STRING }, // Stringify req for input
+        ref_out: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } // Output bind for ref_cur_out cursor
+    };
+
+    console.log(bindParams, "bindParams_gettoppdt");
+    
+   
+    return new Promise(function (resolve, reject) {
+        // Execute the procedure
+        oracleConnection
+            .executeProcedure(db_cpaasweb.poolAlias, sql, bindParams)
+            .then(function (result) {
+                dbConnection = result.dbConnection; // Store the connection
+                
+                // Fetch the cursor data from `ref_cur_out`
+                oracleConnection
+                    .getCursorData(result.dbResult.outBinds.ref_out, 500)
+                    .then(function (cursorResult) {
+                        // Resolve with the cursor data
+                        console.log(cursorResult, "cursorResult_gettoppdt");
+                        
+                        resolve({
+                            ref_out: cursorResult // Cursor data
+                        });
+                    })
+                    .catch(function (err) {
+                        Logger.error("Error fetching cursor data in gettoppdt: " + err);
+                        reject(err);
+                    });
+            })
+            .catch(function (err) {
+                Logger.error("Error executing procedure in gettoppdt: " + err);
                 reject(err);
             });
     }).finally(function () {
@@ -355,5 +450,5 @@ function getqueryanalysis(req) {
 
 module.exports = {
     
-    getallcalldetails,getpeakhourcallbarchart,getsentimentchart,getfaq,getqueryanalysis,getbotsummary,getkeywords
+    getallcalldetails,getpeakhourcallbarchart,getsentimentchart,getfaq,getqueryanalysis,getbotsummary,getkeywords,gettopkeywords,gettopproduct
 }

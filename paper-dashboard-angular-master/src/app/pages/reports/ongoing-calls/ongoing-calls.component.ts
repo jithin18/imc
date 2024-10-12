@@ -32,12 +32,12 @@ export class OngoingCallsComponent implements OnInit, AfterViewChecked {
   displayedColumns: string[] = [
     "callId",
     "callerNumber",
-    "callDate",
     "callStartTime",
     "party",
     "botChat",
   ];
   private intervalId: any;
+  totalSentiment: number = 0;
   pollingSubscription: Subscription;
   constructor(private calldtlsservice: OngoingCalldtlsService) {}
 
@@ -46,13 +46,15 @@ export class OngoingCallsComponent implements OnInit, AfterViewChecked {
     // Set up interval to call a function every 5 seconds
     this.intervalId = setInterval(() => {
       this.livecallreport();
-    }, 5000);
+    }, 500000);
 
 
   }
 
   livecallreport() {
     this.calldtlsservice.getlivecalls().subscribe((resp: any) => {
+      console.log(resp.data,"livecalldatarespp");
+      
       this.ongoingCalls = resp.data;
     });
   }
@@ -86,7 +88,8 @@ export class OngoingCallsComponent implements OnInit, AfterViewChecked {
     this.pollingSubscription = interval(1000).subscribe(() => {
       this.calldtlsservice.getagentcalls(call.callId).subscribe((resp: any) => {
         let data = resp.data;
-
+        let data1=resp.sentiment;
+      this.totalSentiment=data1;
         data.forEach((element) => {
           // Check if the element is already in botChatHistory by matching an identifier, e.g., element.id
           const existsInChatHistory = call.botChatHistory?.some(

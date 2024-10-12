@@ -1,0 +1,15 @@
+::ng-deep .fixed-plugin{
+ display: none !important;
+}
+
+::ng-deep .sidebar[data-active-color=danger] .nav li.active>a, .sidebar[data-active-color=danger] .nav li.active>a i, .sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse], .sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse] i, .sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse]~div>ul>li.active .sidebar-mini-icon, .sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse]~div>ul>li.active>a, .off-canvas-sidebar[data-active-color=danger] .nav li.active>a, .off-canvas-sidebar[data-active-color=danger] .nav li.active>a i, .off-canvas-sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse], .off-canvas-sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse] i, .off-canvas-sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse]~div>ul>li.active .sidebar-mini-icon, .off-canvas-sidebar[data-active-color=danger] .nav li.active>a[data-toggle=collapse]~div>ul>li.active>a{
+    color: red !important;
+    opacity: 100 !important;
+    font-weight: bolder !important;
+}
+
+::ng-deep .sidebar[data-color=white] .nav li a, .sidebar[data-color=white] .nav li a i, .sidebar[data-color=white] .nav li a[data-toggle=collapse], .sidebar[data-color=white] .nav li a[data-toggle=collapse] i, .sidebar[data-color=white] .nav li a[data-toggle=collapse]~div>ul>li .sidebar-mini-icon, .sidebar[data-color=white] .nav li a[data-toggle=collapse]~div>ul>li>a, .off-canvas-sidebar[data-color=white] .nav li a, .off-canvas-sidebar[data-color=white] .nav li a i, .off-canvas-sidebar[data-color=white] .nav li a[data-toggle=collapse], .off-canvas-sidebar[data-color=white] .nav li a[data-toggle=collapse] i, .off-canvas-sidebar[data-color=white] .nav li a[data-toggle=collapse]~div>ul>li .sidebar-mini-icon, .off-canvas-sidebar[data-color=white] .nav li a[data-toggle=collapse]~div>ul>li>a{
+    color: black !important;
+    opacity: 100 !important;
+    font-weight: bolder !important;
+}
